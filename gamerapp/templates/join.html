@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* Navigation Dropdown */
+        .nav .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #050e2d;
+            min-width: 150px;
+            box-shadow: 0 4px 8px #1b2141;
+            border-radius: 4px;
+            z-index: 999;
+            padding: 0;
+            margin: 0;
+        }
+        .nav .dropdown-menu li a {
+            display: block;
+            text-decoration: none;
+            color: white !important;
+            padding: 10px;
+            background-color: #050e2d !important;
+            border-bottom: 1px solid #1aeeef;
+        }
+        .nav .dropdown-menu li a:hover {
+            color: #050e2d !important;
+            background-color: #1aeeef !important;
+        }
+
+        .container {
+        width: 60%; /* Reduced width */
+        margin: 40px auto 0; /* Adds larger gap at the top */
+        padding: 15px; /* Reduced padding */
+        background-color: #1b2141;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container h1 {
+        color: white;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .event-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-table th, .event-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .event-table th {
+        background-color: #050e2d;
+        color: white;
+    }
+
+    .event-table td {
+        background-color: #f9f9f9;
+    }
+        .details-section {
+            width: 100%;
+            margin-top: 80px;
+            background-color: #1b2141;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-section h1 {
+            margin-bottom: 10px;
+            color: white;
+        }
+        .details-section p{
+            color: white;
+        }
+
+        .platforms select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .pricing {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .pricing div {
+            flex-basis: 30%;
+        }
+
+        .platforms label{
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #050e2d;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+
+.details-section .clickable-images {
+    display: flex;
+    gap: 10px;
+}
+
+.details-section .clickable-images img {
+    border-radius: 5px;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+        <ul class="nav">
+            <li><a href="/homeus">Home</a></li>
+            <li><a href="/newsus">News</a></li>
+            <li><a href="/join">Tournaments</a></li>
+            <li><a href="/spec">PC-SPEC</a></li>
+            <li class="dropdown">
+                <a href="#" class="profile-btn"><i class='bx bx-user'></i> Profile <i class='bx bx-chevron-down'></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout_view">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <div class="details-section">
+            <h1>Available Tournament Events</h1><br>
+            <table id="compatibility-table">
+                <thead>
+                    <tr>
+                        <th>Event Game</th>
+                        <th>Event Name</th>
+                        <th>Event Date</th>
+                        <th>Event Mode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ev in event %}
+                    <tr>
+                        <td>{{ ev.tournament }}</td>
+                        <td>{{ ev.name }}</td>
+                        <td>{{ ev.date }}</td>
+                        <td>{{ ev.location }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No events available.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileButton = document.querySelector('.profile-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownMenu.style.display = 'none';
+
+            profileButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            window.addEventListener('click', function (e) {
+                if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

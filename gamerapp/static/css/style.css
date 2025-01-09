@@ -1,0 +1,695 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background: #050e2d;
+}
+
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-thumb{
+    background: #1aeeef;
+    border-radius: 6px;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 7px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1b2141;
+    transition: 0.5s;
+    z-index: 1000;
+}
+
+
+
+header .logo{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+header .nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li{
+    list-style: none;
+    margin: 10px;
+}
+
+header ul li a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+header ul li a:hover{
+    background: #1aeeef;
+    color: #050e2d;
+    box-shadow: 0 0 10px #1aeeef;
+}
+
+.bnr{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 0px 100px;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.bnr .bg {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bnr .bg .content{
+    width: 50%;
+    color: white;
+}
+
+.bnr .bg .content h2{
+    font-size: 4em;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.bnr .bg .image{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bnr .bg .image img{
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.bnr .bg .content .action .searchbx{
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    background: white;
+    border-radius: 5px;
+    letter-spacing: 3px;
+}
+.bnr .bg .content .action .searchbx i{
+    font-size: 1.4em;
+    margin: 5px;
+    color: #222;
+}
+.bnr .bg .action .searchbx input{
+    outline: none;
+    border: none;
+    align-items: left;
+    font-size: 1em;
+    color: #222;
+}
+
+header .action .searchbx{
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    background: white;
+    border-radius: 5px;
+    letter-spacing: 3px;
+}
+header .action .searchbx i{
+    font-size: 1.4em;
+    margin: 5px;
+    color: #222;
+}
+header .action .searchbx input{
+    outline: none;
+    border: none;
+    align-items: left;
+    font-size: 1em;
+    color: #222;
+}
+
+
+/*.for{
+    color: #fff;
+}*/
+
+.games{
+    padding: 0px 100px;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 120px auto;
+}
+.games h2{
+    color: #fff;
+    margin: 10px 0;
+}
+
+.games ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.games ul li{
+    list-style: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: white;
+}
+
+.games ul li.active{
+    background: #1aeeef;
+    color: #050e2d;
+    box-shadow: 0 0 10px #1aeeef;
+}
+
+.games .cardBx {
+    width: 100%;  /*Take the full width of the container */
+    display: flex;
+    flex-wrap: wrap; /* Wrap the cards to the next line */
+    justify-content: center; /* Align items to the left */
+    align-items: center; /* Align items to the top */
+    padding: 0 40px;
+}
+
+
+.games .cardBx .card{
+    width: 280px;
+    border-radius: 10px;
+    margin: 20px 40px;
+    background: #1b2141;
+    overflow: hidden;
+}
+
+.games .cardBx .card img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.games .cardBx .card .content{
+    padding: 10px;
+}
+.games .cardBx .card .content h4{
+    color: white;
+    margin: 15px 0;
+}
+.games .cardBx .card .progress-line{
+    position: relative;
+    height: 10px;
+    width: 100%;
+    background: #35407e;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+.games .cardBx .card .progress-line span{
+    position: absolute;
+    height: 100%;
+    width: 80%;
+    border-radius: 10px;
+    background: #1aeeef;
+    box-shadow: 0 0 10px #1aeeef;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+@keyframes animate{
+    100%{
+        transform: scaleX(1);
+    }
+}
+.games .cardBx .card .info{
+    border-top: 2px solid #35407e;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.games .cardBx .card .info p{
+    font-size: 1em;
+    color: white;
+}
+.games .cardBx .card .info a{
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: 1px solid #1aeeef;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    color: white;
+    letter-spacing: 1px;
+}
+.games .cardBx .card .info a:hover{
+    background: #1aeeef;
+    border: none;
+    color: #050e2d;
+    box-shadow: 0 0 10px #1aeeef;
+}
+.games .cardBx .card.hide{
+    display: none;
+}
+
+.news{
+    
+    padding: 0px 100px;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.news h2{
+    color: white;
+    margin: 10px 0;
+}
+.news .boxBx{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.news .boxBx .box{
+    width: 350px;
+    border-radius: 10px;
+    margin: 20px 40px;
+    background: #1b2141;
+    overflow: hidden;
+}
+.news .boxBx .box img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.news .boxBx .box .content{
+    padding: 10px;
+}
+.news .boxBx .box .content h4{
+    color: white;
+    margin-top: 15px;
+}
+.news .boxBx .box .content p{
+    text-align: justify;
+    color: #dbd9d9;
+    margin-top: 10px;
+}
+.news .boxBx .box .content .btn{
+    display: flex;
+    justify-content: space-between;
+}
+
+.news .boxBx .box .content .btn .watch{
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: 1px solid #1aeeef;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.news .boxBx .box .content .btn .watch:hover{
+    background: #1aeeef;
+    color: #050e2d;
+    box-shadow: 0 0 10px #1aeeef;
+}
+.news .boxBx .box .content .btn .join{
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: 1px solid #1aeeef;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.news .boxBx .box .content .btn .join:hover{
+    background: #1aeeef;
+    color: #050e2d;
+    box-shadow: 0 0 10px #1aeeef;
+}
+
+/*---Login---*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.clearfix::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #050e2d;
+}
+
+.container .form {
+    width: 100%;
+    max-width: 350px;
+    padding: 30px;
+    margin: 0 15px;
+    text-align: center;
+    background: #1b2141;
+    box-shadow: 0 0 5px #999999;
+    border-radius: 5px;
+}
+
+.container .form a.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.container .form p {
+    margin: 0 0 10px 0;
+    text-align: left;
+    color: #666666;
+    font-size: 15px;
+}
+
+.container .form p:last-child {
+    margin: 0;
+    padding-top: 3px;
+}
+
+.container .form label {
+    display: block;
+    width: 100%;
+    margin-bottom: 2px;
+    letter-spacing: .5px;
+}
+
+.container .form p:last-child label {
+    width: 60%;
+    float: left;
+}
+
+.container .form label span {
+    color: #e12b38;
+    padding-left: 2px;
+}
+
+.container .form input {
+    display: block;
+    width: 100%;
+    height: 35px;
+    padding: 0 10px;
+    border: 1px solid #1aeeef;
+    border-radius: 5px;
+}
+
+.container .form input:focus {
+    border-color: #e12b38;
+}
+
+.container .form button,
+.container .form input[type=submit] {
+    width: 40%;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background: #050e2d;
+    cursor: pointer;
+}
+
+.container .form button:hover,
+.container .form input[type=submit]:hover {
+    color: #050e2d;
+    background: #1aeeef;
+    border-color: #1aeeef;
+}
+
+.container .form p a {
+    display: block;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.container .form p a:hover {
+    color: #1aeeef;
+}
+
+.container .form p a:last-child {
+    margin-top: 2px;
+}
+
+.container .form.pass-reset p a,
+.container .form.registration p a {
+    margin-top: 10px;
+}
+
+
+/* Container for the whole spec section */
+body .spec {
+    padding: 0px 20px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Heading and paragraph in the spec section */
+body .spec h2, body .spec p {
+    color: white;
+    margin: 10px 0;
+}
+
+/* Main container for content and image */
+body .spec .spec1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%; /* Use a percentage to make it responsive */
+    max-width: 1200px; /* Set a max-width to limit on larger screens */
+    border-radius: 15px; /* Larger border radius for better aesthetics */
+    margin: 30px 40px;
+    background: #1b2141;
+    padding: 40px; /* Increased padding for a more spacious look */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Add shadow for a subtle 3D effect */
+}
+
+/* Content section */
+body .spec .spec1 .content {
+    flex: 1;
+    margin-right: 40px; /* More space between content and image */
+}
+
+/* Button styling */
+body .spec .spec1 a {
+    display: inline-block;
+    padding: 15px 30px; /* Increased padding to make buttons bigger */
+    margin: 20px 0;
+    border: 1px solid #1aeeef;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 10px; /* More rounded buttons */
+    color: white;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effect */
+}
+
+/* Hover effect on buttons */
+body .spec .spec1 a:hover {
+    background: #1aeeef;
+    border: none;
+    color: #050e2d;
+    box-shadow: 0 0 15px #1aeeef;
+}
+
+/* Image container */
+body .spec .spec1 .image {
+    flex-shrink: 0;
+    width: 40%; /* Set image container width relative to overall container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image styling */
+body .spec .spec1 .image img {
+    width: 100%; /* Ensure image takes full width of its container */
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: #050e2d; /* Add some shadow to the image */
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    padding-top: 100px; /* Space from the top */
+}
+
+.modal-content {
+    background-color: #050e2d;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #1aeeef;
+    width: 500px; /* Increased width */
+    border-radius: 10px;
+    animation: slideIn 0.5s forwards; /* Animation */
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.spec-form input {
+    margin: 10px 0;
+    padding: 10px;
+    width: calc(100% - 20px);
+    border: none;
+    border-radius: 5px;
+    background-color: #050e2d; /* Match background */
+    color: white; /* Text color */
+}
+
+.spec-form input[readonly] {
+    background-color: #050e2d; /* Readonly input color */
+}
+
+.save-button {
+    background-color: #050e2d;
+    border: 1px solid #1aeeef;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width */
+    font-weight: bold; /* Bold text */
+}
+
+.save-button:hover {
+    background-color: #1aeeef;
+    color: #050e2d;
+}
+
+/*  profile dropdown */
+
+/* Ensure the dropdown is positioned correctly */
+.nav .dropdown {
+    position: relative; /* The dropdown's parent should be relatively positioned */
+}
+
+/* Hide the dropdown by default and position it absolutely */
+.nav .dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position absolutely relative to the dropdown parent */
+    top: 100%; /* Position it directly below the profile button */
+    right: 0; /* Align to the right */
+    background-color: #050e2d; /* Background color */
+    min-width: 150px; /* Minimum width for the dropdown */
+    box-shadow: 0 4px 8px #1b2141; /* Shadow effect */
+    border-radius: 4px ; /* Rounded corners */
+    z-index: 999; /* Make sure the dropdown appears on top of other elements */
+    padding: 0; /* No extra padding on the dropdown container */
+    margin: 0; /* No margin */
+}
+
+/* Dropdown menu item styling */
+.nav .dropdown-menu li {
+    list-style: none;
+    padding: 10px;
+}
+
+/* Styling the links inside the dropdown */
+.nav .dropdown-menu li a {
+    display: block;
+    align-items: center;
+    text-decoration: none;
+    color: white; /* Default text color */
+    padding: 10px;
+    background-color: #050e2d; /* Default background color */
+}
+
+/* Hover effect for dropdown items */
+.nav .dropdown-menu li a:hover {
+    color: #050e2d; /* Text color on hover */
+    background-color: #1aeeef; /* Background color on hover */
+}

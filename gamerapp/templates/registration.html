@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Free HTML Login Templates</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/css/style.css" />
+    </head>
+    <body>
+        <div class="container clearfix">
+            <div class="form registration">
+                <a class="logo" href="">
+                    <a href="/ind" class="logo">GameExplorer</a>
+                </a>
+                <form method="post" action="/reg">
+                    {% csrf_token %}
+                    <p>
+                        <label>First name<span>*</span></label>
+                        <input type="text" name="first_name" required>
+                    </p>
+                    <p>
+                        <label>Last name<span>*</span></label>
+                        <input type="text" name="last_name" required>
+                    </p>
+                    <p>
+                        <label>Email address<span>*</span></label>
+                        <input type="email" name="email" required>
+                    </p>
+                    <p>
+                        <label>Password<span>*</span></label>
+                        <input type="password" name="password" required>
+                    </p>
+                    <p>
+                        <label>Again password<span>*</span></label>
+                        <input type="password" name="confirm_password" required>
+                    </p>
+                    <p>
+                        <label>
+                            <a href="/ind">Have an account</a>
+                        </label>
+                        <input type="submit" value="Signup" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

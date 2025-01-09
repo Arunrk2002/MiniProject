@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Header styles */
+        header {
+            background-color: #1b2141;
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1aeeef;
+        }
+        .nav {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+        .nav li a:hover {
+            background-color: #1aeeef;
+            color: #050e2d;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #050e2d;
+            right: 0;
+            top: 60px;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .dropdown-menu li a:hover {
+            background-color: #1aeeef;
+            color: #050e2d;
+        }
+        /* Fix for content hidden under header */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding-top: 100px; /* Add padding to avoid content being hidden */
+            width: 90%;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .game-details {
+            display: flex;
+            width: 100%;
+        }
+
+        .game-image {
+            width: 55%;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .game-info {
+            width: 45%;
+            padding-left: 20px;
+        }
+
+        .game-info h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .game-info p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .details-section {
+            width: 100%;
+            margin-top: 20px;
+            background-color: #1b2141;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-section h3 {
+            margin-bottom: 10px;
+            color: white;
+        }
+        .details-section p{
+            color: white;
+        }
+
+        .platforms select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .pricing {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .pricing div {
+            flex-basis: 30%;
+        }
+
+        .platforms label{
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #050e2d;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+
+.details-section .clickable-images {
+    display: flex;
+    gap: 10px;
+}
+
+.details-section .clickable-images img {
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+        <div class="action">
+            <div class="searchbx">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <input type="text" placeholder="Search Here">
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="/homeus">Home</a></li>
+            <li><a href="/newsus">News</a></li>
+            <li><a href="/join">Tournaments</a></li>
+            <li><a href="/spec">PC-SPEC</a></li>
+            <li class="dropdown">
+                <a href="#" class="profile-btn"><i class='bx bx-user'></i> Profile <i class='bx bx-chevron-down'></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout_view">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <div class="game-details">
+            <div class="game-image">
+                <img src="{{ game.image.url }}" alt="{{ game.title }} Image">
+            </div>
+            <div class="game-info">
+                <h1>{{ game.title }}</h1>
+                <p>{{ game.summary }}</p>
+
+            </div>
+        </div>
+        <div class="details-section">
+    <h3>Pricing:</h3>
+    <p>Rs. {{ game.pricing }}</p>
+
+    <!-- Container for clickable images -->
+    <div class="clickable-images">
+        <a href="https://store.steampowered.com/" target="_blank">
+            <img src="/static/img/Steamedit.png" alt="Steam" width="30" height="30">
+        </a>
+        <a href="https://www.epicgames.com/store/en-US/" target="_blank">
+            <img src="/static/img/epicedit.png" alt="Epic Games" width="30" height="35">
+        </a>
+    </div>
+</div>
+
+
+        <div class="details-section">
+            <h3>Compatibility Testing</h3><br>
+            <table id="compatibility-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Required</th>
+                        <th>Current</th>
+                        <th>Compatible?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Processor</td>
+                        <td>{{ required_specs.processor }}</td>
+                        <td>
+                            {% if current_specs %}
+                                {{ current_specs.cpu }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td id="processor-check"></td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>{{ required_specs.ram }} GB</td>
+                        <td>
+                            {% if current_specs %}
+                                {{ current_specs.ram }} GB
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td id="ram-check"></td>
+                    </tr>
+                    <tr>
+                        <td>GPU</td>
+                        <td>{{ required_specs.gpu }}</td>
+                        <td>
+                            {% if current_specs %}
+                                {{ current_specs.gpu }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td id="gpu-check"></td>
+                    </tr>
+                    <tr>
+                        <td>Storage</td>
+                        <td>{{ required_specs.storage }} GB</td>
+                        <td>
+                            {% if current_specs %}
+                                {{ current_specs.storage }} GB
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td id="storage-check"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Platform link update function
+        function showPlatformLink() {
+            const platformDropdown = document.getElementById('platform');
+            const selectedPlatform = platformDropdown.value;
+            const platformLinkDiv = document.getElementById('platform-link');
+            let link = '';
+
+            if (selectedPlatform === 'steam') {
+                link = '<a href="https://store.steampowered.com/" target="_blank" style="color: white;">Visit Steam Store</a>';
+            } else if (selectedPlatform === 'epic-games') {
+                link = '<a href="https://www.epicgames.com/store/en-US/" target="_blank" style="color: white;">Visit Epic Games Store</a>';
+            } else if (selectedPlatform === 'ps-store') {
+                link = '<a href="https://store.playstation.com/en-us/" target="_blank" style="color: white;">Visit PlayStation Store</a>';
+            }
+
+            platformLinkDiv.innerHTML = link;
+        }
+
+         const requiredSpecs = {
+        processor: "{{ required_specs.processor }}",
+        ram: {{ required_specs.ram }},
+        gpu: "{{ required_specs.gpu }}",
+        storage: {{ required_specs.storage }}
+    };
+
+    const currentSpecs = {
+        processor: "{{ current_specs.cpu }}",
+        ram: {{ current_specs.ram }},
+        gpu: "{{ current_specs.gpu }}",
+        storage: {{ current_specs.storage }}
+    };
+
+    // Function to check compatibility
+    function checkCompatibility() {
+        // Processor check
+        const processorCheck = currentSpecs.processor.includes(requiredSpecs.processor) ? '✅' : '❌';
+        document.getElementById('processor-check').innerHTML = processorCheck;
+
+        // RAM check (ensure correct type is used)
+        const ramCheck = currentSpecs.ram >= requiredSpecs.ram ? '✅' : '❌';
+        document.getElementById('ram-check').innerHTML = ramCheck;
+
+        // GPU check
+        const gpuCheck = currentSpecs.gpu.includes(requiredSpecs.gpu) ? '✅' : '❌';
+        document.getElementById('gpu-check').innerHTML = gpuCheck;
+
+        // Storage check
+        const storageCheck = currentSpecs.storage >= requiredSpecs.storage ? '✅' : '❌';
+        document.getElementById('storage-check').innerHTML = storageCheck;
+    }
+
+    // Run the compatibility check when the page loads
+    window.onload = checkCompatibility;
+    window.onload = checkCompatibility;
+        // Run the compatibility check when the page loads
+        window.onload = checkCompatibility;
+
+        let list = document.querySelectorAll('.list');
+        let card = document.querySelectorAll('.card');
+
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', function () {
+                for (let j = 0; j < list.length; j++) {
+                    list[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                let dataFilter = this.getAttribute('data-filter');
+                for (let k = 0; k < card.length; k++) {
+                    card[k].classList.remove('active');
+                    card[k].classList.add('hide');
+
+                    if (card[k].getAttribute('data-item') === dataFilter || dataFilter === 'all') {
+                        card[k].classList.remove('hide');
+                        card[k].classList.add('active');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileButton = document.querySelector('.profile-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownMenu.style.display = 'none';
+
+            profileButton.addEventListener('click', function (e) {
+                e.preventDefault();  // Prevent default anchor behavior
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            window.addEventListener('click', function (e) {
+                if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';  // Hide the dropdown
+                }
+            });
+        });
+    </script>
+</body>
+</html>

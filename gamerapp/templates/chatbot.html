@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* Chatbot icon (floating button) */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1aeeef;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-icon:hover {
+            background-color: #050e2d;
+        }
+
+        /* Chatbot window */
+        .chatbot-window {
+            display: none; /* Initially hidden */
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        /* Header of the chatbot */
+        .chatbot-header {
+            background-color: #050e2d;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* Chat area */
+        .chat-area {
+            padding: 20px;
+            height: 350px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-bubble {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 75%;
+        }
+
+        .user-message {
+            background-color: #1aeeef;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #050e2d;
+            color: white;
+        }
+
+        /* Message input */
+        .message-input {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ddd;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        .message-input button {
+            background-color: #1aeeef;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .message-input button:hover {
+            background-color: #050e2d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" onclick="toggleChat()">
+        <i class='bx bxs-message-rounded-dots' style='font-size: 24px;'></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            Chat with GameExplorer Bot
+        </div>
+        <div class="chat-area" id="chatArea">
+            <!-- Chat bubbles will be dynamically added here -->
+        </div>
+        <div class="message-input">
+            <input type="text" id="userMessage" placeholder="Type your message here..." />
+            <button onclick="sendMessage()"><i class='bx bxs-send'></i></button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatbotWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' || chatWindow.style.display === '' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const userMessage = document.getElementById('userMessage').value;
+            if (userMessage.trim() !== '') {
+                addMessageToChat(userMessage, 'user-message');
+                // Here you would send the message to your chatbot server
+                document.getElementById('userMessage').value = ''; // Clear input
+            }
+        }
+
+        function addMessageToChat(message, className) {
+            const chatArea = document.getElementById('chatArea');
+            const messageBubble = document.createElement('div');
+            messageBubble.className = 'chat-bubble ' + className;
+            messageBubble.textContent = message;
+            chatArea.appendChild(messageBubble);
+            chatArea.scrollTop = chatArea.scrollHeight; // Scroll to bottom
+        }
+    </script>
+
+</body>
+</html>

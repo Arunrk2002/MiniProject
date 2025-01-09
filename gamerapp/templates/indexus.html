@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        .nav .dropdown-menu {
+            display: none; /* Hidden by default */
+            position: absolute; /* Position absolutely relative to the dropdown parent */
+            top: 100%; /* Position it directly below the profile button */
+            right: 0; /* Align to the right */
+            background-color: #050e2d; /* Background color */
+            min-width: 150px; /* Minimum width for the dropdown */
+            box-shadow: 0 4px 8px #1b2141; /* Shadow effect */
+            border-radius: 4px; /* Rounded corners */
+            z-index: 999; /* Make sure the dropdown appears on top of other elements */
+            padding: 0; /* No extra padding on the dropdown container */
+            margin: 0; /* No margin */
+        }
+        .nav .dropdown-menu li a {
+            display: block;
+            align-items: center;
+            text-decoration: none;
+            color: white !important;
+            padding: 10px;
+            background-color: #050e2d !important;
+            border: #1aeeef;
+        }
+
+        .nav .dropdown-menu li a:hover {
+            color: #050e2d !important;
+            background-color: #1aeeef !important;
+        }
+        /* Chatbot icon (floating button) */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #050e2d;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: #1aeeef !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-icon:hover {
+            background-color: #1aeeef;
+            color: #050e2d;
+        }
+
+        /* Chatbot window */
+        .chatbot-window {
+            display: none; /* Initially hidden */
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        /* Header of the chatbot */
+        .chatbot-header {
+            background-color: #1b2141;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* Chat area */
+        .chat-area {
+            padding: 20px;
+            height: 350px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-bubble {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 75%;
+            border: #1aeeef;
+        }
+
+        .user-message {
+            background-color: #1b2141;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #050e2d;
+            color: white;
+        }
+
+        /* Message input */
+        .message-input {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ddd;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        .message-input button {
+            background-color: #050e2d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .message-input button:hover {
+            background-color: #1aeeef;
+            color: #050e2d;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+        <ul class="nav">
+            <li><a href="/homeus">Home</a></li>
+            <li><a href="/newsus">News</a></li>
+            <li><a href="/join">Tournaments</a></li>
+            <li><a href="/spec">PC-SPEC</a></li>
+            <li class="dropdown">
+                <a href="#" class="profile-btn"><i class='bx bx-user'></i> Profile <i class='bx bx-chevron-down'></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout_view">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div class="bnr">
+        <div class="bg">
+            <div class="content">
+                <h3>Welcome to GameExplorer where</h3>
+                <h2>GAMERS UNITE</h2>
+                <div class="action">
+                    <div class="searchbx">
+                        <a href="#" onclick="searchGames()"><i class='bx bx-search'></i></a>
+                        <input type="text" id="searchQuery" placeholder="Search Here">
+                    </div>
+                </div>
+                <div id="resultArea"></div> <!-- Placeholder for search results -->
+
+                <div class="togglemenu">
+                </div>
+            </div>
+            <div class="image">
+                <img src="static/img/gamers1.png" alt="Game Character">
+            </div>
+        </div>
+    </div>
+
+    <div class="chatbot-icon" onclick="toggleChat()">
+        <i class='bx bxs-message-rounded-dots' style='font-size: 24px;'></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            Chat with GameExplorer Bot
+        </div>
+        <div class="chat-area" id="chatArea">
+            <!-- Chat bubbles will be dynamically added here -->
+        </div>
+        <div class="message-input">
+            <input type="text" id="userMessage" placeholder="Type your message here..." />
+            <button onclick="sendMessage()"><i class='bx bxs-send'></i></button>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the profile button and dropdown menu
+            const profileButton = document.querySelector('.profile-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            // Initially hide the dropdown on page load
+            dropdownMenu.style.display = 'none';
+
+            // Add click event listener to toggle the dropdown on profile button click
+            profileButton.addEventListener('click', function (e) {
+                e.preventDefault();  // Prevent default anchor behavior
+
+                // Toggle the dropdown display between 'block' and 'none'
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', function (e) {
+                if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';  // Hide the dropdown
+                }
+            });
+        });
+
+        /* Chat */
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatbotWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' || chatWindow.style.display === '' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const userMessage = document.getElementById('userMessage').value;
+            if (userMessage.trim() !== '') {
+                addMessageToChat(userMessage, 'user-message');
+
+                // Send the message to the Django view
+                fetch('/chat/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // CSRF token
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.reply) {
+                        addMessageToChat(data.reply, 'bot-message');
+                    } else {
+                        addMessageToChat("Sorry, I didn't understand that.", 'bot-message');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                document.getElementById('userMessage').value = ''; // Clear the input field
+            }
+        }
+
+        function addMessageToChat(message, type) {
+            const chatArea = document.getElementById('chatArea');
+            const chatBubble = document.createElement('div');
+            chatBubble.className = `chat-bubble ${type}`;
+            chatBubble.innerText = message;
+            chatArea.appendChild(chatBubble);
+            chatArea.scrollTop = chatArea.scrollHeight; // Scroll to the bottom of the chat area
+        }
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Check if this cookie string begins with the name we want
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+        function displaySearchResults(results) {
+    let resultArea = document.getElementById('resultArea');
+    resultArea.innerHTML = ''; // Clear previous results
+
+    if (results.length > 0) {
+        results.forEach(game => {
+            const gameElement = document.createElement('div');
+            gameElement.classList.add('game-result');
+
+            gameElement.innerHTML = `
+                <h3>${game.title}</h3>
+                <p><strong>Genre:</strong> ${game.genre}</p>
+                <p><strong>Available on:</strong> ${game.available_devices}</p>
+                <p>${game.summary}...</p>
+                ${game.image_url ? `<img src="${game.image_url}" alt="${game.title}" style="max-width: 100px;">` : ''}
+                <p><strong>Pricing:</strong> ${JSON.stringify(game.pricing)}</p>
+            `;
+
+            resultArea.appendChild(gameElement);
+        });
+    } else {
+        resultArea.innerHTML = '<p>No games found.</p>';
+    }
+}
+
+    </script>
+</body>
+</html>

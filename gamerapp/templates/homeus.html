@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .nav .dropdown-menu {
+            display: none; /* Hidden by default */
+            position: absolute; /* Position absolutely relative to the dropdown parent */
+            top: 100%; /* Position it directly below the profile button */
+            right: 0; /* Align to the right */
+            background-color: #050e2d; /* Background color */
+            min-width: 150px; /* Minimum width for the dropdown */
+            box-shadow: 0 4px 8px #1b2141; /* Shadow effect */
+            border-radius: 4px; /* Rounded corners */
+            z-index: 999; /* Make sure the dropdown appears on top of other elements */
+            padding: 0; /* No extra padding on the dropdown container */
+            margin: 0; /* No margin */
+        }
+        .nav .dropdown-menu li a {
+            display: block;
+            text-decoration: none;
+            color: white !important;
+            padding: 10px;
+            background-color: #050e2d !important;
+            border: #1aeeef;
+        }
+
+        .nav .dropdown-menu li a:hover {
+            color: #050e2d !important;
+            background-color: #1aeeef !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+        <div class="action">
+            <div class="searchbx">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <input type="text" placeholder="Search Here">
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="/homeus">Home</a></li>
+            <li><a href="/newsus">News</a></li>
+            <li><a href="/join">Tournaments</a></li>
+            <li><a href="/spec">PC-SPEC</a></li>
+            <li class="dropdown">
+                <a href="#" class="profile-btn"><i class='bx bx-user'></i> Profile <i class='bx bx-chevron-down'></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout_view">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div class="games">
+        <h2>Popular Games</h2>
+        <ul>
+            <li class="list active" data-filter="all">All</li>
+            <li class="list" data-filter="pc">PC Games</li>
+            <li class="list" data-filter="mobile">Mobile Games</li>
+        </ul>
+        <div class="cardBx">
+            {% for game in games %}
+                <div class="card" data-item="{{ game.available_devices|lower }}">
+                    <img src="{{ game.image.url }}" alt="{{ game.title }}">
+                    <div class="content">
+                        <h4>{{ game.title }}</h4>
+                        <div class="progress-line"><span></span></div>
+                        <div class="info">
+                            <p>{{ game.genre }}</p>
+                            <a href="{% url 'game_detail' game.id %}">View Now</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No games available.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        let list = document.querySelectorAll('.list');
+        let card = document.querySelectorAll('.card');
+
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', function () {
+                for (let j = 0; j < list.length; j++) {
+                    list[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                let dataFilter = this.getAttribute('data-filter');
+                for (let k = 0; k < card.length; k++) {
+                    card[k].classList.remove('active');
+                    card[k].classList.add('hide');
+
+                    if (card[k].getAttribute('data-item') === dataFilter || dataFilter === 'all') {
+                        card[k].classList.remove('hide');
+                        card[k].classList.add('active');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileButton = document.querySelector('.profile-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownMenu.style.display = 'none';
+
+            profileButton.addEventListener('click', function (e) {
+                e.preventDefault();  // Prevent default anchor behavior
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            window.addEventListener('click', function (e) {
+                if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';  // Hide the dropdown
+                }
+            });
+        });
+    </script>
+</body>
+</html>

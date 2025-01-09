@@ -1,0 +1,61 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+
+        <a href="/ind" class="logo">GameExplorer</a>
+
+        <ul class="nav">
+            <li><a href="/home">Home</a> </li>
+            <li><a href="/news">News</a> </li>
+            <li><a href="/log">Sign-up/Sign-in</a> </li>
+        </ul>
+
+    </header>
+
+
+
+    <div class="bnr">
+        <div class="bg">
+            <div class="content">
+                <h3>Welcome to GameExplorer where</h3>
+                <h2>GAMERS UNITE</h2>
+
+                <div class="action">
+                    <div class="searchbx">
+                        <a href="#"><i class='bx bx-search'></i></a>
+                        <input type="text" placeholder="Search Here">
+                    </div>
+                </div>
+                <div class="togglemenu">
+
+                </div>
+            </div>
+            <div class="image">
+                <img src="static/img/gamers1.png" alt="Game Character">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        window.addEventListener('scroll',function(){
+            var header=document.querySelector('header');
+            header.classList.toggle('sticky',window.scrollY > 0);
+        });
+    </script>
+</body>
+</html>

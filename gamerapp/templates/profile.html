@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* Header styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1b2141;
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sticky effect for header */
+        .sticky {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Navigation styles */
+        .nav {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav li {
+            position: relative;
+        }
+
+        .nav li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Dropdown styles */
+        .nav .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* Position it below the profile button */
+            right: 0;
+            background-color: #050e2d;
+            min-width: 150px;
+            box-shadow: 0 4px 8px #1b2141;
+            border-radius: 4px;
+            z-index: 999;
+        }
+
+        .nav .dropdown-menu li a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav .dropdown-menu li a:hover {
+            color: #050e2d;
+            background-color: #1aeeef;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #1b2141;
+            position: fixed;
+            top: 60px; /* Adjusted to be below the header */
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: none;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            font-size: 18px;
+            outline: none;
+        }
+
+        .sidebar button:hover {
+            background-color: #1aeeef;
+        }
+
+        /* Main content styles */
+        .content {
+            margin-left: 260px;
+            padding: 80px 20px 20px; /* Adjusted padding to ensure content is not hidden under the header */
+        }
+
+        .section {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: #050e2d;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .save-btn {
+            background-color: #050e2d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .save-btn:hover {
+            color: #050e2d;
+            background-color: #1aeeef;
+        }
+        /* Styling the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #050e2d;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+        .sidebar button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: none;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+}
+
+.sidebar button:hover {
+    background-color: #1aeeef;
+}
+
+.logout-btn {
+    margin-top: auto; /* Push the logout button to the bottom */
+    background-color: #d9534f; /* Optional: Change color for visibility */
+    color: white; /* Text color */
+}
+
+.logout-btn:hover {
+    background-color: #c9302c; /* Darker color on hover */
+}
+
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+
+        <ul class="nav">
+            <li><a href="/homeus">Home</a> </li>
+            <li><a href="/newsus">News</a> </li>
+            <li><a href="/join">Tournaments</a></li>
+            <li><a href="/spec">PC-SPEC</a> </li>
+
+        </ul>
+    </header>
+
+    <div class="sidebar">
+        <button onclick="showSection('overview')">Overview</button>
+
+        <button onclick="showSection('spec')">PC SPEC</button>
+        <a href="/logout_view"><button class="logout-btn">Log Out</button></a>
+    </div>
+
+    <div class="content">
+        <!-- Overview Section -->
+        <!-- Overview Section -->
+<div id="overview" class="section active">
+    <h2>Overview</h2>
+    <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ user.get_full_name }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Date Joined</td>
+                    <td>{{ user.date_joined }}</td>
+                </tr>
+                <!-- Add any other user fields you want to display -->
+            </table>
+
+
+</div>
+
+
+
+
+
+
+        <div id="spec" class="section">
+            <h3>PC Specifications:</h3>
+            <table>
+                <tr>
+                    <th>Components</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td>Processor</td>
+                    <td>{{ current_specs.cpu }}</td>
+                </tr>
+                <tr>
+                    <td>RAM</td>
+                    <td>{{ current_specs.ram }} GB</td>
+                </tr>
+                <tr>
+                    <td>GPU</td>
+                    <td>{{ current_specs.gpu }}</td>
+                </tr>
+                <tr>
+                    <td>Storage</td>
+                    <td>{{ current_specs.storage }} GB</td>
+                </tr>
+                <!-- Add any other user fields you want to display -->
+            </table>
+
+        </div>
+
+        <!-- Update PC-Spec Section (already developed by you) -->
+
+
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileButton = document.querySelector('.profile-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownMenu.style.display = 'none';
+
+            profileButton.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                if (dropdownMenu.style.display === 'block') {
+                    dropdownMenu.style.display = 'none';
+                } else {
+                    dropdownMenu.style.display = 'block';
+                }
+            });
+
+            window.addEventListener('click', function (e) {
+                if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            var selectedSection = document.getElementById(sectionId);
+            selectedSection.classList.add('active');
+        }
+    </script>
+</body>
+</html>

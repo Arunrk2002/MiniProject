@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+</head>
+<body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+
+        <a href="/ind" class="logo">GameExplorer</a>
+        <div class="action">
+            <div class="searchbx">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <input type="text" placeholder="Search Here">
+            </div>
+        </div>
+        <div class="togglemenu">
+
+        </div>
+        <ul class="nav">
+            <li><a href="/home">Home</a> </li>
+            <li><a href="/news">News</a> </li>
+            <li><a href="/log">Sign-up/Sign-in</a> </li>
+        </ul>
+
+    </header>
+
+
+    <div class="games">
+        <h2>Popular Games</h2>
+        <ul>
+            <li class="list active" data-filter="all">All</li>
+            <li class="list" data-filter="pc">PC Games</li>
+            <li class="list" data-filter="mobile">Mobile Games</li>
+        </ul>
+        <div class="cardBx">
+            <div class="card" data-item="pc">
+                <img src="static/img/bmw.png">
+                <div class="content">
+                    <h4>Black Myth Wukong</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>ARPG</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-item="pc">
+                <img src="static/img/got.jpg">
+                <div class="content">
+                    <h4>The Ghost of Tsushima</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>Action,Open world</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-item="pc">
+                <img src="static/img/gi.png">
+                <div class="content">
+                    <h4>Genshin Impact</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>Action,Open world</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-item="mobile">
+                <img src="static/img/pubg.jpg">
+                <div class="content">
+                    <h4>Player Unknown Battleground</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>Shooting</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-item="mobile">
+                <img src="static/img/ef.png">
+                <div class="content">
+                    <h4>efootball</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>Sports</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-item="mobile">
+                <img src="static/img/coc.png">
+                <div class="content">
+                    <h4>Clash of Clans</h4>
+                    <div class="progress-line"><span></span></div>
+                    <div class="info">
+                        <p>Strategy</p>
+                        <a href="#">View Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        let list = document.querySelectorAll('.list');
+        let card = document.querySelectorAll('.card');
+
+        for(let i = 0; i<list.length; i++){
+            list[i].addEventListener('click',function(){
+                for(let j=0; j<list.length; j++){
+                    list[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                let dataFilter = this.getAttribute('data-filter');
+                for(let k=0; k<card.length; k++){
+                    card[k].classList.remove('active');
+                    card[k].classList.add('hide');
+
+                    if(card[k].getAttribute('data-item') == dataFilter || dataFilter == 'all'){
+                        card[k].classList.remove('hide');
+                        card[k].classList.add('active');
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html>
+
+</body>
+</html>

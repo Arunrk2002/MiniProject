@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results - GameExplorer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/indexus" class="logo">GameExplorer</a>
+        <ul class="nav">
+            <li><a href="/homeus">Home</a></li>
+            <li><a href="/newsus">News</a></li>
+            <li><a href="/spec">PC-SPEC</a></li>
+            <li class="dropdown">
+                <a href="#" class="profile-btn"><i class='bx bx-user'></i> Profile <i class='bx bx-chevron-down'></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout_view">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div class="search-results">
+        <h2>Search Results for "{{ query }}"</h2>
+
+        {% if results %}
+            <ul>
+                {% for game in results %}
+                    <li>
+                        <h3>{{ game.gamename }}</h3>  <!-- Updated from title to gamename -->
+                        <p>{{ game.summary }}</p>      <!-- Ensure summary exists in your model -->
+                        <p>Genre: {{ game.genre }}</p>
+                        <p>Available on: {{ game.available_devices }}</p>
+                        <p>Price: {{ game.pricing }}</p>
+                        <img src="{{ game.image.url }}" alt="{{ game.gamename }}">  <!-- Updated from title to gamename -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+</body>
+</html>

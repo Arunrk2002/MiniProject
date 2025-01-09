@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Game Event</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <h2>Register for a Game Event</h2>
+    <form method="POST" action="{% url 'register_event' %}">
+        {% csrf_token %}
+
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="event_name" required>
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" id="event_date" name="event_date" required>
+
+        <label for="game_title">Game Title:</label>
+        <input type="text" id="game_title" name="game_title" required>
+
+        <label for="platform">Platform:</label>
+        <input type="text" id="platform" name="platform" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

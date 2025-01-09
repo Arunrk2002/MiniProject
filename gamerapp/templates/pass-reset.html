@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Password Reset</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body h1{
+            color: white;
+        }
+    </style>
+    <script>
+        // Function to redirect after 5 seconds
+        function redirectToOtpPage() {
+            window.location.href = "{% url 'verify_otp' %}";
+        }
+
+        // Set a timeout to redirect after 5 seconds
+        window.onload = function() {
+            setTimeout(redirectToOtpPage, 5000);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form pass-reset">
+            <h1>Game Explorer</h1>
+
+            {% if step == 'request' %}
+            <form method="post" action="{% url 'password_reset' %}">
+                {% csrf_token %}
+                <p>
+                    <label>Email Address:</label>
+                    <input type="email" name="email" required>
+                </p>
+                <p>
+                    <input type="submit" value="Send OTP">
+                </p>
+            </form>
+
+            {% elif step == 'verify' %}
+            <p>OTP has been sent to your email. You will be redirected to the OTP verification page in 5 seconds...</p>
+            <form method="post" action="{% url 'verify_otp' %}">
+                {% csrf_token %}
+                <p>
+                    <label>Enter OTP:</label>
+                    <input type="text" name="otp" required>
+                </p>
+                <p>
+                    <input type="submit" value="Verify OTP">
+                </p>
+            </form>
+
+            {% elif step == 'set_password' %}
+            <form method="post" action="{% url 'set_new_password' %}">
+                {% csrf_token %}
+                <p>
+                    <label>New Password:</label>
+                    <input type="password" name="new_password" required>
+                </p>
+                <p>
+                    <input type="submit" value="Reset Password">
+                </p>
+            </form>
+            {% endif %}
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
